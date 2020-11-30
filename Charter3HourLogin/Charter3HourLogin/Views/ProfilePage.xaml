@@ -1,8 +1,73 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<views:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
+             xmlns:views="clr-namespace:Charter3HourLogin.Views;assembly=Charter3HourLogin"
+             xmlns:behaviors="clr-namespace:Charter3HourLogin.Common.Behaviors;assembly=Charter3HourLogin.Common"
+             xmlns:system="clr-namespace:System;assembly=netstandard"
              prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="Charter3HourLogin.Views.ProfilePage">
-  
-</ContentPage>
+             x:Class="Charter3HourLogin.Views.ProfilePage"
+             Title="Create Account">
+    
+    <!-- NOTE: I would normally extract out styles into the the app.resources -->
+    <!-- NOTE: The directions for this screen asked for 4 Entries, but a UserName is needed for login & validation, so I put 5 -->
+    
+    <ScrollView Orientation="Vertical">
+        <StackLayout
+            HorizontalOptions="CenterAndExpand"
+            VerticalOptions="FillAndExpand"
+            Style="{StaticResource LoginStack}"
+            Spacing="10">
+            <Label
+                Margin="0,40,0,20"
+                Text="Welcome"
+                TextColor="{StaticResource PrimaryColor}"
+                FontSize="Large"
+                FontAttributes="Bold"
+                FontFamily="{StaticResource  SFProText}"
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center" />
+            <Label Text="{Binding ErrorMessage}" TextColor="DarkRed" FontSize="Small"/>
+            <Entry Text="{Binding User.UserName, Mode=TwoWay}" Placeholder="User Name" Keyboard="Plain" IsTextPredictionEnabled="False">
+                <Entry.Behaviors>
+                    <behaviors:SpecialCharValidatorBehavior />
+                </Entry.Behaviors>
+            </Entry>
+            <Entry Text="{Binding User.Password, Mode=TwoWay}" Placeholder="Password" MaxLength="15" Margin="0,0,0,10">
+                <Entry.Behaviors>
+                    <prism:EventToCommandBehavior EventName="TextChanged" Command="{Binding ValidatePasswordCommand}" />
+                </Entry.Behaviors>
+            </Entry>
+            <Entry Text="{Binding User.FirstName, Mode=TwoWay}" Placeholder="First Name" Keyboard="Text" IsTextPredictionEnabled="False">
+                <Entry.Behaviors>
+                    <behaviors:SpecialCharValidatorBehavior />
+                </Entry.Behaviors>
+            </Entry>
+            <Entry Text="{Binding User.LastName, Mode=TwoWay}" Placeholder="Last Name" Keyboard="Text" IsTextPredictionEnabled="False">
+                <Entry.Behaviors>
+                    <behaviors:SpecialCharValidatorBehavior />
+                </Entry.Behaviors>
+            </Entry>
+            <Entry Text="{Binding User.Phone, Mode=TwoWay}" Placeholder="Phone" Keyboard="Telephone">
+                <Entry.Behaviors>
+                    <behaviors:MaskedBehavior Mask="(XXX)-XXX-XXXX" />
+                </Entry.Behaviors>
+            </Entry>
+            <DatePicker
+                Date="{Binding User.StartDate, Mode=TwoWay}"
+                BackgroundColor="WhiteSmoke"
+                TextColor="{StaticResource PrimaryColor}"
+                MinimumDate="{x:Static system:DateTime.Now}">
+                <DatePicker.Behaviors>
+                    <prism:EventToCommandBehavior EventName="DateSelected" Command="{Binding ValidateDateCommand}" />
+                </DatePicker.Behaviors>
+            </DatePicker>
+            <!-- I would normally create a start date eq to DateTime.Date.Today.AddDays(30), but reqs ask for an error message -->
+            <Button 
+                Margin="0,20,0,0"
+                Text="Create Account" 
+                BackgroundColor="{StaticResource PrimaryColor}"
+                Command="{Binding CreateAccountCommand}" />
+        </StackLayout>
+    </ScrollView>
+</views:BasePage>

@@ -1,7 +1,11 @@
+using Charter3HourLogin.Common.Services;
+using Charter3HourLogin.Common.ViewModels;
+using Charter3HourLogin.Common.Views;
 using Charter3HourLogin.ViewModels;
 using Charter3HourLogin.Views;
 using Prism;
 using Prism.Ioc;
+using Prism.Services;
 using Xamarin.Essentials.Implementation;
 using Xamarin.Essentials.Interfaces;
 using Xamarin.Forms;
@@ -19,17 +23,19 @@ namespace Charter3HourLogin
         {
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("NavigationPage/MainPage");
+            await NavigationService.NavigateAsync("NavigationPage/LoginPage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterSingleton<IAppInfo, AppInfoImplementation>();
+            containerRegistry.RegisterSingleton<IDataRepoService, DataRepoService>();
+            containerRegistry.RegisterInstance<IFileSystem>(new FileSystemImplementation());
 
             containerRegistry.RegisterForNavigation<NavigationPage>();
-            containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
             containerRegistry.RegisterForNavigation<ProfilePage, ProfilePageViewModel>();
+            containerRegistry.RegisterForNavigation<ActivityPopupPage, ActivityPopupPageViewModel>();
             containerRegistry.RegisterForNavigation<ProfileConfirmationPage, ProfileConfirmationPageViewModel>();
         }
     }
