@@ -2,7 +2,7 @@
 
 namespace Charter3HourLogin.Views
 {
-    public partial class ProfileConfirmationPage : ContentPage
+    public partial class ProfileConfirmationPage
     {
         public ProfileConfirmationPage()
         {

@@ -5,10 +5,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Prism.Forms" Version="7.2.0.1422" />
+    <PackageReference Include="ReactiveUI.Fody" Version="12.1.5" />
     <PackageReference Include="ReactiveUI.XamForms" Version="12.1.5" />
+    <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.7" />
     <PackageReference Include="Xamarin.Essentials.Interfaces" Version="1.5.3.2" />
-    <PackageReference Include="Xamarin.FFImageLoading.Svg" Version="2.4.11.982" />
+    <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
+    <PackageReference Include="Xamarin.FFImageLoading.Svg.Forms" Version="2.4.11.982" />
     <PackageReference Include="Xamarin.Forms" Version="4.8.0.1687" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Images\cogBig.svg" />
+    <EmbeddedResource Include="Images\cogBig.svg" />
   </ItemGroup>
 
 </Project>

@@ -1,8 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<views:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
+             xmlns:views="clr-namespace:Charter3HourLogin.Views;assembly=Charter3HourLogin"
+             xmlns:common="clr-namespace:Charter3HourLogin.Common;assembly=Charter3HourLogin.Common"
              prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="Charter3HourLogin.Views.LoginPage">
+             x:Class="Charter3HourLogin.Views.LoginPage"
+             NavigationPage.HasNavigationBar="False">
+    <views:BasePage.Resources>
+        <Style TargetType="Entry">
+            <Setter Property="Keyboard" Value="Plain"/>
+            <Setter Property="IsSpellCheckEnabled" Value="False"/>
+            <Setter Property="IsTextPredictionEnabled" Value="False"/>
+        </Style>
+    </views:BasePage.Resources>
+    
+    <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Style="{StaticResource LoginStack}" Spacing="10">
+        <Label Text="{Binding ErrorMessage}" TextColor="DarkRed" FontSize="Small"/>
+        <Label
+             Text="{Binding SuccessMessage}"
+             TextColor="{StaticResource PrimaryColor}"
+             FontSize="Subtitle"
+             FontAttributes="Bold"
+             FontFamily="{StaticResource  SFProText}"
+             HorizontalOptions="Center"
+             HorizontalTextAlignment="Center"
+             VerticalOptions="Center"
+         />
+        <Entry Text="{Binding UserName, Mode=TwoWay}" Placeholder="Login" />
+        <Entry Text="{Binding Password, Mode=TwoWay}" Placeholder="Password" IsPassword="True" />
+        <Button Text="Sign In" 
+                BackgroundColor="{StaticResource PrimaryColor}"
+                Command="{Binding LoginUserCommand}"/>
+        <Button Text="Create Account" 
+                BackgroundColor="{StaticResource PrimaryColor}"
+                Command="{Binding CreateAccountCommand}"/>
+    </StackLayout>
   
-</ContentPage>
+</views:BasePage>
