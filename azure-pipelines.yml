@@ -29,9 +29,10 @@ steps:
   inputs:
     solutionFile: '**/*.sln'
     configuration: 'Release'
-    buildForSimulator: true
-    packageApp: false
+    buildForSimulator: false
+    packageApp: true
     
+
 - task: AppCenterDistribute@3
   inputs:
     serverEndpoint: 'AppCenter Altlum'
